@@ -32,6 +32,12 @@ class DynArray():
 		self.array[self.count] = itm
 		self.count += 1
 
+	def add_values(self, values):
+		self.__init__()
+	
+		for value in values:
+			self.append(value)
+
 	def insert(self, i, itm):
 		values = []
 
@@ -39,11 +45,7 @@ class DynArray():
 			if k == i: values.append(itm)				
 			values.append(self.array[k])
 
-		self.count = 0	
-		self.array = self.make_array(self.capacity)
-	
-		for value in values:
-			self.append(value)
+		self.add_values(values)
 
 	def delete(self, i):
 		values = []
@@ -52,11 +54,7 @@ class DynArray():
 			if k == i: continue				
 			values.append(self.array[k])
 
-		self.count = 0	
-		self.array = self.make_array(self.capacity)
-	
-		for value in values:
-			self.append(value)
+		self.add_values(values)
 
 
 
