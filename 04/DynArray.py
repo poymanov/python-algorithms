@@ -33,7 +33,14 @@ class DynArray():
 		self.count += 1
 
 	def add_values(self, values):
-		self.__init__()
+		self.count = 0
+
+		if len(values) < self.BASE_CAPACITY:
+			self.capacity = self.BASE_CAPACITY
+		else:
+			self.capacity = len(values)
+
+		self.array = self.make_array(self.capacity)
 	
 		for value in values:
 			self.append(value)
