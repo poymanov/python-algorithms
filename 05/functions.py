@@ -12,8 +12,10 @@ def is_balanced(string): #2
 	return stack.size() == 0
 
 def calc_postfix_variable(string):
-	stack1 = Stack2()
-	stack2 = Stack2()
+	stack1 = Stack1()
+	stack2 = Stack1()
+
+	string = string[::-1]
 
 	for i in string:
 		if i == ' ': continue

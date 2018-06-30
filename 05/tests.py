@@ -21,9 +21,9 @@ class Stack2Case(unittest.TestCase):
 		stack.push("2")
 		stack.push(3.14)
 
-		self.assertEqual(1, stack.pop())
-		self.assertEqual("2", stack.pop())
 		self.assertEqual(3.14, stack.pop())
+		self.assertEqual("2", stack.pop())
+		self.assertEqual(1, stack.pop())
 		self.assertIsNone(stack.pop())
 
 class FunctionsCase(unittest.TestCase):

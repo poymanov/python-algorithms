@@ -28,7 +28,7 @@ class Stack2: #1
 		return self.stack.pop(0)
 
 	def push(self, value):
-		return self.stack.append(value)
+		return self.stack.insert(0, value)
 
 	def peak(self):
 		if len(self.stack) == 0:
