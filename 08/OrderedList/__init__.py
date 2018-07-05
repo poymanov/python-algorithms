@@ -10,6 +10,8 @@ class Node():
 class List():
 	SORT_ASC = 'ASC'
 	SORT_DESC = 'DESC'
+	APPEND_AFTER = 'append_after'
+	APPEND_BEFORE = 'append_before'
 
 	def __init__(self, sort = SORT_ASC):
 		self.head = None
@@ -17,46 +19,72 @@ class List():
 		self.sort = sort
 
 	def add(self, item):
-		nodes = []
-		nodes.append(item)
+		if self.head == None:
+			self.head = item
+			self.tail = item
+			return
 
 		element = self.head
+	
+		while element != None:		
+			compare_result = self.compare_nodes(item, element);
 
-		while element != None:
-			nodes.append(element)
+			if compare_result == self.APPEND_AFTER:
+				self.append_after_node(item, element)
+				break
+			elif compare_result == self.APPEND_BEFORE:
+				self.append_before_node(item, element)
+				break
+
 			element = element.next	
 
-		nodes = self.sort_nodes(nodes)
-		
-		self.head = None
-		self.tail = None
+	def compare_nodes(self, n1, n2):		
+		if n1.value == n2.value: return False
 
-		for node in nodes:
-			node.next  = None
-			node.prev = None
-			self.add_in_tail(node)
-						
-	def sort_nodes(self, nodes):
-		n = 1
-
-		while n < len(nodes):
-			for i in range(len(nodes)-n):
-				if (self.sort == self.SORT_ASC and nodes[i].value > nodes[i+1].value) or (
-					self.sort == self.SORT_DESC and nodes[i].value < nodes[i+1].value):
-					nodes[i], nodes[i+1] = nodes[i+1], nodes[i]
-			n += 1
-
-		return nodes
-
-	def add_in_tail(self, item):
-		if self.head is None:
-			self.head = item
-			item.prev = None
-			item.next = None
+		if self.sort == self.SORT_ASC:
+			if n1.value > n2.value:
+				if n2.next is None: 
+					return self.APPEND_AFTER
+				elif n1.value <= n2.next.value: 
+					return self.APPEND_AFTER
+				return False
 		else:
-			self.tail.next = item
-			item.prev = self.tail
-		self.tail = item		
+			if n1.value < n2.value:
+				if n2.next is None:
+					return self.APPEND_AFTER
+				elif n1.value >= n2.next.value:
+					return self.APPEND_AFTER
+				return False
+			else:
+				if n2.prev is None:
+					return self.APPEND_BEFORE
+				elif n2.value >= n2.prev.value:
+					return self.APPEND_BEFORE
+				return False
+
+	def append_after_node(self, node, after):
+		node.prev = after
+		node.next = after.next
+
+		if after.next is not None:
+			after.next.prev = node
+
+		if self.tail is None or self.tail == after:
+			self.tail = node	
+
+		after.next = node
+
+	def append_before_node(self, node, before):
+		node.prev = before.prev
+		node.next = before
+
+		if before.prev is not None:
+			before.prev.next = node
+
+		if self.head == before:
+			self.head = node
+
+		before.prev = node	
 
 	def find(self, val):
 		if self.sort == self.SORT_ASC:
@@ -70,17 +98,32 @@ class List():
 			if node.value == val:
 				return node
 			node = node.next
-		return None		
+		return None			
 
 class ListStrings(List):
-	def sort_nodes(self, nodes):
-		n = 1
+	def compare_nodes(self, n1, n2):
+		n1_value = n1.value.strip()
+		n2_value = n2.value.strip()
 
-		while n < len(nodes):
-			for i in range(len(nodes)-n):
-				if (self.sort == self.SORT_ASC and nodes[i].value.strip() > nodes[i+1].value.strip()) or (
-					self.sort == self.SORT_DESC and nodes[i].value.strip() < nodes[i+1].value.strip()):
-					nodes[i], nodes[i+1] = nodes[i+1], nodes[i]
-			n += 1
+		if n1_value == n2_value: return False
 
-		return nodes
+		if self.sort == self.SORT_ASC:
+			if n1_value > n2_value:
+				if n2.next is None: 
+					return self.APPEND_AFTER
+				elif n1_value <= n2.next.value.strip(): 
+					return self.APPEND_AFTER
+				return False
+		else:
+			if n1_value < n2_value:
+				if n2.next is None:
+					return self.APPEND_AFTER
+				elif n1_value >= n2.next.value.strip():
+					return self.APPEND_AFTER
+				return False
+			else:
+				if n2.prev is None:
+					return self.APPEND_BEFORE
+				elif n2_value >= n2.prev.value.strip():
+					return self.APPEND_BEFORE
+				return False
