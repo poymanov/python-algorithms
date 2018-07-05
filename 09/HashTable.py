@@ -15,11 +15,20 @@ class HashTable:
 		return bytes_sum % self.size
 
 	def seek_slot(self, value):
-		index = self.hash_fun(value)
+		base_index = self.hash_fun(value)
+		index = base_index
+		first_round = True
 
 		while self.slots[index] is not None:
 			index += self.step
-			if index > self.size: return None
+
+			if first_round:
+				if index >= self.size:
+					first_round = False
+					index = 0
+			else:
+				if index >= base_index:
+					return None
 
 		return index
 
@@ -32,10 +41,19 @@ class HashTable:
 		self.slots[index] = value
 
 	def find(self, value):
-		index = self.hash_fun(value)
+		base_index = self.hash_fun(value)
+		index = base_index
+		first_round = True
 
-		if self.slots[index] == value:
-			return index
-		else:
-			return None
+		while self.slots[index] != value:
+			index += 1
 
+			if first_round:
+				if index >= self.size:
+					first_round = False
+					index = 0
+			else:
+				if index >= base_index:
+					return None
+
+		return index
