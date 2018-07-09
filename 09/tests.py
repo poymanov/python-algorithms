@@ -27,7 +27,7 @@ class HashTableCase(unittest.TestCase):
 		hash_table = HashTable(self.hash_size, self.hash_step)
 		hash_table.put(self.hash_value)
 
-		#self.assertEqual(14, hash_table.find(self.hash_value))	
+		self.assertEqual(14, hash_table.find(self.hash_value))	
 		self.assertIsNone(hash_table.find(missing_value))
 
 
