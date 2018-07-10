@@ -20,7 +20,8 @@ class PowerSetCase(unittest.TestCase):
 
 		power_set.remove(self.value)
 		self.assertIsNone(power_set.find(self.value))
-
+		self.assertIsNone(power_set.remove('not_exist_value'))
+			
 	def	test_find_same_elements(self):
 		power_set1 = PowerSet(self.size, self.step)
 		power_set1.put('value1')

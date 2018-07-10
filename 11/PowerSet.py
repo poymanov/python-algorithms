@@ -31,7 +31,10 @@ class PowerSet:
 
 	def remove(self, value):
 		index = self.find(value)
-		self.slots[index] = None
+	
+		if index != None:
+			self.slots[index] = None
+			
 
 	def intersection(self, power_set):
 		values = []
