@@ -16,21 +16,7 @@ class HashTable:
 
 	def seek_slot(self, value):
 		base_index = self.hash_fun(value)
-		index = base_index
-		first_round = True
-
-		while self.slots[index] is not None:
-			index += self.step
-
-			if first_round:
-				if index >= self.size:
-					first_round = False
-					index = 0
-			else:
-				if index >= base_index:
-					return None
-
-		return index
+		return self.iterate_slots(base_index, self.step, None)
 
 	def put(self, value):
 		index = self.seek_slot(value)
@@ -42,11 +28,14 @@ class HashTable:
 
 	def find(self, value):
 		base_index = self.hash_fun(value)
+		return self.iterate_slots(base_index, 1, value)
+
+	def iterate_slots(self, base_index, step, value):
 		index = base_index
 		first_round = True
 
 		while self.slots[index] != value:
-			index += 1
+			index += step
 
 			if first_round:
 				if index >= self.size:
@@ -57,3 +46,4 @@ class HashTable:
 					return None
 
 		return index
+

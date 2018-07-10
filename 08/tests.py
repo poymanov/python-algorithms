@@ -1,5 +1,7 @@
 import unittest
-from OrderedList import Node, List, ListStrings
+from OrderedList.Node import Node
+from OrderedList.List import List
+from OrderedList.ListStrings import ListStrings
 
 class ListCase(unittest.TestCase):
 	def test_add_integer_values_in_list_sorted_by_asc(self):

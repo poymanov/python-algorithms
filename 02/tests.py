@@ -1,5 +1,6 @@
 import unittest
-from LinkedList import Node, List
+from LinkedList.Node import Node
+from LinkedList.List import List
 
 class NodeCase(unittest.TestCase):
 	def test_node_can_have_previous_element(self):

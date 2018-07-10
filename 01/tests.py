@@ -1,10 +1,12 @@
 import unittest
-from LinkedList import Node, List, sum_lists
+from LinkedList.Node import Node
+from LinkedList.List import List
 
 class NodeCase(unittest.TestCase):
 	def test_new_node_have_not_next_element(self):
 		n1 = Node(12)
 		self.assertIsNone(n1.next)	
+
 	def test_node_have_value(self):
 		n1 = Node(12)
 		self.assertEqual(n1.value, 12)
@@ -175,7 +177,7 @@ class ListCase(unittest.TestCase):
 		self.assertIs(new.next, n3)
 
 class AnotherCase(unittest.TestCase):
-	def test_sum_equal_lists(self): # 1.7
+	def test_sum_equal_lists(self):
 		n1 = Node(12)
 		n2 = Node(55)
 		n3 = Node(128)
@@ -194,11 +196,11 @@ class AnotherCase(unittest.TestCase):
 		linked_list2.add_in_tail(n5)
 		linked_list2.add_in_tail(n6)
 
-		result = sum_lists(linked_list1, linked_list2)
+		result = List.sum_lists(linked_list1, linked_list2)
 
 		self.assertEqual(result, [24, 110, 256])
 
-	def test_sum_not_equal_lists(self):	# 1.7
+	def test_sum_not_equal_lists(self):
 		n1 = Node(12)
 		n2 = Node(55)
 		n3 = Node(128)
@@ -219,7 +221,7 @@ class AnotherCase(unittest.TestCase):
 		linked_list2.add_in_tail(n6)
 		linked_list2.add_in_tail(n7)
 
-		result = sum_lists(linked_list1, linked_list2)
+		result = List.sum_lists(linked_list1, linked_list2)
 
 		self.assertIsNone(result)
 
