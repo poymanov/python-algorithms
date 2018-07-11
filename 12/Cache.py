@@ -1,9 +1,10 @@
-class AssocArray:
+class Cache:
 	def __init__(self, sz, stp):
 		self.size = sz
 		self.step = stp
 		self.slots = [None] * self.size
 		self.values = [None] * self.size
+		self.hits = [0] * self.size
 
 	def hash_fun(self, value):
 		value = str(value)
@@ -17,7 +18,14 @@ class AssocArray:
 
 	def seek_slot(self, value):
 		base_index = self.hash_fun(value)
-		return self.iterate_slots(base_index, self.step, None)
+
+		index = self.iterate_slots(base_index, self.step, None)
+
+		if index is None:
+			self.remove_least_popular_slot()
+			return self.seek_slot(value)
+		else:
+			return index
 		
 	def put(self, key, value):
 		index = self.seek_slot(key)
@@ -32,7 +40,8 @@ class AssocArray:
 		base_index = self.hash_fun(key)
 		index = self.iterate_slots(base_index, 1, key)
 
-		if index is not None:
+		if index is not None:			
+			self.put_hits(index)				
 			return self.values[index]
 		else:
 			return None
@@ -52,4 +61,15 @@ class AssocArray:
 				if index >= base_index:
 					return None
 
-		return index		
+		return index	
+
+	def put_hits(self, index):
+		self.hits[index] += 1
+
+	def remove_least_popular_slot(self):
+		min_value = min(self.hits)
+		min_index = self.hits.index(min_value)
+
+		self.slots[min_index] = None
+		self.values[min_index] = None
+		self.hits[min_index] = 0
