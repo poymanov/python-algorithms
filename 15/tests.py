@@ -57,6 +57,15 @@ class NodeCase(unittest.TestCase):
 
 		self.assertIs(node1.right_child, node2)
 		self.assertIs(node2.parent, node1)
+
+	def test_check_node_is_leaf(self):
+		node1 = Node(None, 10)
+		node2 = Node(None, 20)
+
+		node1.add_right(node2)
+
+		self.assertFalse(node1.is_leaf())
+		self.assertTrue(node2.is_leaf())
 			
 class TreeCase(unittest.TestCase):
 	def test_search_node_by_equal_key(self):
@@ -98,6 +107,7 @@ class TreeCase(unittest.TestCase):
 		node2 = Node(None, 7)
 		node3 = Node(None, 12)
 		node4 = Node(None, 4)
+		node5 = Node(None, 11)
 
 		tree = Tree()
 		tree.root = node1
@@ -105,9 +115,10 @@ class TreeCase(unittest.TestCase):
 		node1.add_left(node2)
 		node1.add_right(node3)
 		node2.add_left(node4)
+		node2.add_right(node5)
 	
 		self.assertEqual({'min': 4, 'max': 12}, tree.get_min_max())
-		self.assertEqual({'min': 4, 'max': 7}, tree.get_min_max(node2))
+		self.assertEqual({'min': 4, 'max': 11}, tree.get_min_max(node2))
 				
 	def test_delete_node_left_descendant(self):
 		node1 = Node(None, 8)
