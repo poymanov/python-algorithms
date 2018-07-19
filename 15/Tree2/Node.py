@@ -33,3 +33,6 @@ class Node:
 
 		self.right_child = node
 		node.parent = self	
+
+	def is_leaf(self):
+		return not (self.left_child or self.right_child)
