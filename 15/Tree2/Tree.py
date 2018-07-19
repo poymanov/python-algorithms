@@ -38,22 +38,28 @@ class Tree:
 		yield node
 
 		if node.left_child:
-			for k in self.iterate_node(node.left_child):
+			for k in self.iterate_left_childs(node.left_child):
 				yield k
+
+	def iterate_right_childs(self, node):
+		yield node
+
+		if node.right_child:
+			for k in self.iterate_right_childs(node.right_child):
+				yield k				
 
 	def get_min_max(self, node=None):
 		min_value = None
 		max_value = None
 
-		for node in self.iterate_node(node):
-			current_key = node.key
-			if not min_value: min_value = current_key
-			if not max_value: max_value = current_key
+		if node is None:
+			node = self.root
 
-			if current_key < min_value: 
-				min_value = current_key
-			elif current_key > max_value:
-				max_value = current_key
+		for item in self.iterate_left_childs(node):
+			if item.is_leaf(): min_value = item.key
+
+		for item in self.iterate_right_childs(node):
+			if item.is_leaf(): max_value = item.key			
 
 		return {'min': min_value, 'max': max_value}	
 
