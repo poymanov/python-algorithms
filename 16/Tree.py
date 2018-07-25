@@ -65,6 +65,19 @@ class Tree:
 
 		self.data[right_index] = child
 
+	def add(self, value):
+		value_index = self.search(value)
+
+		if value_index is None:
+			raise 'Failed to found slot for child'
+
+		if self.data[value_index] is not None:
+			raise 'Element already in tree'	
+
+		self.data[value_index] = value
+
+		return True		
+		
 	def search(self, value, parent = None):
 		if parent == None:
 			parent = self.data[0]
@@ -83,7 +96,7 @@ class Tree:
 				next_value = self.data[index]
 
 				if next_value == None:
-					return -12
+					return index
 				else:		
 					return self.search(value, self.data[index])
 			except:

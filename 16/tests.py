@@ -19,6 +19,8 @@ class TreeToArrayCase(unittest.TestCase):
 
 		self.tree = tree
 
+		self.result_data = [50, 25, 75, None, 37, 62, 84, None, None, 31, 43, 55, None, None, 92]
+
 	def test_init_tree(self):
 		tree = Tree(4, 50)
 
@@ -96,8 +98,7 @@ class TreeToArrayCase(unittest.TestCase):
 		self.assertEqual(result_data, tree.data)
 
 	def test_create_tree(self):
-		result_data = [50, 25, 75, None, 37, 62, 84, None, None, 31, 43, 55, None, None, 92]
-		self.assertEqual(result_data, self.tree.data)
+		self.assertEqual(self.result_data, self.tree.data)
 
 	def test_search_missing_key(self):
 		self.assertIsNone(self.tree.search(100))
@@ -106,7 +107,35 @@ class TreeToArrayCase(unittest.TestCase):
 		self.assertEqual(6, self.tree.search(84))
 
 	def test_search_missing_acceptable_key(self):
-		self.assertEqual(-12, self.tree.search(21))
+		self.assertEqual(3, self.tree.search(21))
+
+	def test_add_child_failed(self):
+		with self.assertRaises(Exception):
+			self.tree.add(100)	
+
+		with self.assertRaises(Exception):
+			self.tree.add(84)				
+
+	def test_add_child_success(self):
+		self.assertTrue(self.tree.add(21))
+		self.assertEqual(3, self.tree.data.index(21))		
+
+	def test_create_tree_with_add(self):
+		tree = Tree(4, 50)
+		tree.add(25)
+		tree.add(75)
+
+		tree.add(37)
+		tree.add(31)
+		tree.add(43)
+
+		tree.add(62)
+		tree.add(55)
+
+		tree.add(84)
+		tree.add(92)
+
+		self.assertEqual(self.result_data, tree.data)
 
 if __name__ == '__main__':
 	unittest.main(verbosity=2)		
