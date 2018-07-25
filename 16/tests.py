@@ -107,7 +107,7 @@ class TreeToArrayCase(unittest.TestCase):
 		self.assertEqual(6, self.tree.search(84))
 
 	def test_search_missing_acceptable_key(self):
-		self.assertEqual(3, self.tree.search(21))
+		self.assertEqual(-3, self.tree.search(21))
 
 	def test_add_child_failed(self):
 		with self.assertRaises(Exception):

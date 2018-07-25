@@ -71,10 +71,10 @@ class Tree:
 		if value_index is None:
 			raise 'Failed to found slot for child'
 
-		if self.data[value_index] is not None:
+		if value_index > 0:
 			raise 'Element already in tree'	
 
-		self.data[value_index] = value
+		self.data[abs(value_index)] = value
 
 		return True		
 		
@@ -96,7 +96,7 @@ class Tree:
 				next_value = self.data[index]
 
 				if next_value == None:
-					return index
+					return index * -1
 				else:		
 					return self.search(value, self.data[index])
 			except:
