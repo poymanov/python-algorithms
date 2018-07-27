@@ -26,15 +26,12 @@ class Heap:
 
 		if index == 0: return None
 
-		self.data[index] = value
+		prev_index = index - 1
+		prev_value = self.data[prev_index]
 
-		parent_index = (index - 1) // 2
-
-		parent_value = self.data[parent_index]
-
-		if value > parent_value:
-			self.data[parent_index] = value
-			self.data[index] = parent_value
+		if value > self.data[prev_index]:
+			self.data[index] = prev_value
+			self.data[prev_index] = value
 			return self.add(value)
 
 	def delete_max(self, value = None):
@@ -48,17 +45,14 @@ class Heap:
 
 		value_index = self.data.index(value)
 
-		left_child_index = 2 * value_index + 1
-		right_child_index = 2 * value_index + 2
+		if self.data[-1] == value: return None
 
-		left_child_value = self.data[left_child_index]
-		right_child_value = self.data[right_child_index]
+		next_index = value_index + 1
+		next_value = self.data[next_index]
 
-		if left_child_value is not None and value < left_child_value:
-			self.data[left_child_index] = value
-			self.data[value_index] = left_child_value
-			return self.delete_max(value)
-		elif right_child_value is not None and value < right_child_value:
-			self.data[right_child_index] = value
-			self.data[value_index] = right_child_value
+		if next_value is None: return None
+
+		if value < self.data[next_index]:
+			self.data[value_index] = next_value
+			self.data[next_index] = value
 			return self.delete_max(value)

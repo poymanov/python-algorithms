@@ -19,14 +19,13 @@ class HeapCase(unittest.TestCase):
 		self.assertEqual(result_data, heap.data)
 
 	def test_create_heap(self):
-		result_data = [5, 4, 2, 1, 3, None, None]
+		result_data = [5, 4, 3, 2, 1, None, None]
 
 		self.assertEqual(result_data, self.heap.data)
 
 	def	test_delete_max_element(self):
 		result_data = [4, 3, 2, 1, None, None, None]
 		self.heap.delete_max()
-		
 		self.assertEqual(result_data, self.heap.data)
 
 if __name__ == '__main__':
