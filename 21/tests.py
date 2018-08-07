@@ -13,13 +13,11 @@ class InsertionSortCase(unittest.TestCase):
 	def test_insertion_sort_step_2(self):
 		except_data = [2, 1, 4, 3]
 		step = 2
-
 		self.assertEqual(except_data, insertion_sort(self.data, step))		
 
 	def test_insertion_sort_step_3(self):
 		except_data = [3, 1, 2, 4]
 		step = 3
-
 		self.assertEqual(except_data, insertion_sort(self.data, step))				
 
 	def test_insertion_sort_incorrect_step(self):

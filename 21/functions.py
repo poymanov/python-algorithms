@@ -10,6 +10,13 @@ def insertion_sort(data, step=1):
 		if j >= data_length: break
 
 		if data[i] > data[j]:
-			data[i], data[j] = data[j], data[i]
+			value_i = data[i]
+			value_j = data[j]
+
+			del data[i]
+			del data[j-1]
+
+			data.insert(i, value_j)
+			data.insert(j, value_i)
 
 	return data
