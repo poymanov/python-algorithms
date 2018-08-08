@@ -1,22 +1,19 @@
 def insertion_sort(data, step=1):
-	data_length = len(data)
-
-	if step >= data_length:
+	if step >= len(data):
 		raise ValueError('Incorrect sort step')
 
-	for i in range(data_length):
+	for i in range(len(data)):
 		j = i + step
 
-		if j >= data_length: break
+		if j >= len(data): break
 
 		if data[i] > data[j]:
-			value_i = data[i]
 			value_j = data[j]
+			del data[j]
 
-			del data[i]
-			del data[j-1]
+			for k in range(len(data)):
+				if data[k] < value_j:
+					data.insert(k + step, value_j)
 
-			data.insert(i, value_j)
-			data.insert(j, value_i)
 
 	return data
