@@ -10,12 +10,7 @@ class PartitioningCase(unittest.TestCase):
 	def test_partitioning_case_2(self):
 		data = [2, 2, 2, 2, 2, 2];
 		result = partitioning(data, 2)
-
-		i1 = result['i1']
-		i2 = result['i2']
-
-		self.assertEqual(i1, 0)
-		self.assertEqual(i2, 5)
+		self.check_result(data, result)
 
 	def test_partitioning_case_3(self):
 		data = [2, 2, 2, 2, 2, 2];

@@ -8,14 +8,11 @@ def partitioning(data, pivot_element):
 		if i1 == i2 - 1:
 			break		
 
-		if data[i1] == pivot_element and data[i2] == pivot_element:
-			break
-
-		if data[i1] < pivot_element:
+		if data[i1] < pivot_element or data[i1] == pivot_element:
 			i1 += 1
 			continue
 
-		if data[i2] > pivot_element:
+		if data[i2] > pivot_element or data[i2] == pivot_element:
 			i2 -= 1			
 			continue
 
